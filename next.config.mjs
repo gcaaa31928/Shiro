@@ -5,8 +5,7 @@ import { fileURLToPath } from 'node:url'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
 import { config } from 'dotenv'
-
- 
+import createNextIntlPlugin from 'next-intl/plugin';
 
 process.title = 'Shiro (NextJS)'
 
@@ -19,6 +18,7 @@ const __dirname = path.dirname(__filename)
 let commitHash = ''
 let commitUrl = ''
 const repoInfo = getRepoInfo()
+const withNextIntl = createNextIntlPlugin();
 
 if (repoInfo) {
   commitHash = repoInfo.hash
@@ -135,7 +135,7 @@ if (process.env.ANALYZE === 'true') {
   })(nextConfig)
 }
 
-export default nextConfig
+export default withNextIntl(nextConfig);
 
 function getRepoInfo() {
   if (process.env.VERCEL) {

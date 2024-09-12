@@ -195,7 +195,7 @@ export const useSendComment = () => {
                   },
                 })
                 .then(() => {
-                  toast.success('已同步到碎碎念')
+                  toast.success('已同步到碎碎')
                 })
 
             return res
