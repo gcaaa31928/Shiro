@@ -4,6 +4,10 @@
     "note": "筆記",
     "like": "按讚",
     "subscribe": "訂閱",
-    "thank_you": "謝謝你"
+    "thank_you": "謝謝你",
+    "activity_post": "最近更新的文章",
+    "activity_note": "最近更新的筆記",
+    "activity_recent": "最近發生的事",
+    "more": "更多"
   }
 }
