@@ -1,6 +1,6 @@
 {
   "Home": {
-    "post": "文稿",
+    "post": "文章",
     "note": "筆記",
     "like": "按讚",
     "subscribe": "訂閱",
@@ -9,5 +9,17 @@
     "activity_note": "最近更新的筆記",
     "activity_recent": "最近發生的事",
     "more": "更多"
+  },
+  "Subscribe": {
+    "post": "文章",
+    "note": "筆記",
+    "subscribe": "訂閱",
+    "disabled": "訂閱功能未啟用",
+    "welcome": "歡迎訂閱「{title} 」，我會定期推送最新的內容到你提供的信箱上。",
+    "mail_subscribe": "Email 訂閱",
+    "mail_placeholder": "Email",
+    "success": "訂閱成功！",
+    "use_feed_pre": "或者您也可以透過",
+    "use_feed_post": "訂閱「{title}」的 RSS。"
   }
 }
