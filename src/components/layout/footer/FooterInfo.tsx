@@ -191,17 +191,7 @@ const FooterBottom = async () => {
             RSS
           </a>
           <Divider />
-          <a href="/sitemap.xml" target="_blank" rel="noreferrer">
-            站点地图
-          </a>
-          <Divider className="inline" />
-
-          <SubscribeTextButton>
-            <Divider className="hidden md:inline" />
-          </SubscribeTextButton>
-        </span>
-        <span className="mt-3 block md:mt-0 md:inline">
-          Stay hungry. Stay foolish.
+          <SubscribeTextButton />
         </span>
       </p>
       <div>
@@ -225,7 +215,7 @@ const FooterBottom = async () => {
           <>
             <Divider />
             <span>
-              最近访客来自&nbsp;
+              最近訪客来自&nbsp;
               {lastVisitor.flag}&nbsp;
               {[lastVisitor.city, lastVisitor.country]
                 .filter(Boolean)

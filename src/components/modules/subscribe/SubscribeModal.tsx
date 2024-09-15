@@ -1,6 +1,7 @@
 'use client'
 
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
+import { useTranslations } from 'next-intl'
 import type React from 'react'
 import type { FC } from 'react'
 import { useEffect, useReducer } from 'react'
@@ -21,8 +22,8 @@ interface SubscribeModalProps {
 }
 
 const subscribeTextMap: Record<string, string> = {
-  post_c: '文章',
-  note_c: '手记',
+  post_c: 'post',
+  note_c: 'note',
   say_c: '说说',
   recently_c: '速记',
 }
@@ -62,6 +63,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
   onConfirm,
   defaultTypes,
 }) => {
+  const t = useTranslations('Subscribe')
   const [state, dispatch] = useFormData()
 
   const canSub = useIsEnableSubscribe()
@@ -91,8 +93,8 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
   const query = useSubscribeStatusQuery()
 
   const handleSubList: React.EventHandler<any> = async (e) => {
-    if (!canSub) {
-      toast.error('订阅功能暂时没有开启哦')
+    if (!canSub.data) {
+      toast.error(t('disabled'))
       return
     }
     preventDefault(e)
@@ -103,7 +105,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
       Object.keys(types).filter((name) => state.types[name]) as any[],
     )
 
-    toast.success('订阅成功，谢谢你！')
+    toast.success(t('success'))
     dispatch({ type: 'reset' })
     onConfirm()
   }
@@ -111,13 +113,10 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
 
   return (
     <form onSubmit={handleSubList} className="flex flex-col gap-5">
-      <p className="text-gray-1 text-sm">
-        欢迎订阅「{title}
-        」，我会定期推送最新的内容到你的邮箱。
-      </p>
+      <p className="text-gray-1 text-sm">{t('welcome', { title })}</p>
       <Input
         type="text"
-        placeholder="留下你的邮箱哦 *"
+        placeholder={t('mail_placeholder')}
         required
         value={state.email}
         onChange={(e) => {
@@ -151,20 +150,20 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
                 id={name}
               />
               <label htmlFor={name} className="text-shizuku">
-                {subscribeTextMap[name]}
+                {t(subscribeTextMap[name])}
               </label>
             </fieldset>
           ))}
       </div>
 
       <p className="text-gray-1 -mt-2 text-sm">
-        或者你也可以通过{' '}
+        {t('use_feed_pre')}
         <a href="/feed" className="text-green" target="_blank" rel="noreferrer">
           /feed
         </a>{' '}
-        订阅「{title}」的 RSS 流。
+        {t('use_feed_post', { title })}
       </p>
-      <StyledButton disabled={!state.email}>订阅</StyledButton>
+      <StyledButton disabled={!state.email}>{t('subscribe')}</StyledButton>
     </form>
   )
 }

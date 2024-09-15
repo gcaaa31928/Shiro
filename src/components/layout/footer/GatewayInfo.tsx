@@ -7,7 +7,6 @@ import { useOnlineCount } from '~/atoms'
 import { useSocketIsConnect } from '~/atoms/hooks'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { PeekLink } from '~/components/modules/peek/PeekLink'
-import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { TrackerAction } from '~/constants/tracker'
@@ -29,26 +28,9 @@ const Help = () => {
         triggerAsChild: true,
       }}
     >
-      <div className="space-y-2 leading-relaxed">
-        <p className="flex items-center space-x-1 opacity-80">
-          <i className="icon-[mingcute--question-line]" />
-          <span className="font-medium">这是如何实现的？</span>
-        </p>
-        <p>
-          当你打开这个页面时，会自动建立 WebSocket
-          连接，当成功连接后服务器会推送当前浏览页面的人数。
-        </p>
-        <p>
-          WebSocket
-          用于通知站点，站长在站点的实时活动，包括不限于文章的发布和更新。
-        </p>
-
-        <Divider />
-
-        <p>
-          当前 Socket 状态： <ConnectedIndicator />
-        </p>
-      </div>
+      <p>
+        目前 Socket 狀態： <ConnectedIndicator />
+      </p>
     </FloatPopover>
   )
 }
@@ -72,7 +54,7 @@ function ConnectionStatus({ isConnected }: { isConnected: boolean }) {
   const secondaryColor = isConnected
     ? 'rgba(174, 244, 194, 0.46)'
     : 'rgba(244, 174, 174, 0.46)'
-  const text = isConnected ? '已连接' : '未连接'
+  const text = isConnected ? 'Connected' : 'Disconnected'
 
   const backgroundStyle = {
     background: `radial-gradient(45.91% 45.91% at 49.81% 54.09%, ${color} 7.13%, ${secondaryColor} 65.83%, rgba(252, 252, 252, 0.00) 100%)`,
@@ -101,11 +83,11 @@ export const GatewayInfo = () => {
         offset={10}
         triggerElement={
           <span key={count} className="cursor-pointer">
-            正在被{' '}
+            目前有{' '}
             <span>
               <NumberSmoothTransition>{count}</NumberSmoothTransition>
             </span>{' '}
-            人看爆
+            人駐留於此
           </span>
         }
       >
@@ -170,10 +152,10 @@ const RoomsInfo = () => {
       </div>
     )
   if (data.length === 0)
-    return <div className="text-gray-500">还没有小伙伴在阅览文章哦~</div>
+    return <div className="text-gray-500">目前沒有人在此</div>
   return (
     <div className="lg:max-w-[400px]">
-      <div className="mb-2 text-sm font-medium">下面的内容正在被看爆：</div>
+      <div className="mb-2 text-sm font-medium">下面的内容正在被檢視中：</div>
       <ul className="flex flex-col justify-between gap-2">
         {data.map((room) => (
           <li key={room.path} className="flex items-center justify-between">

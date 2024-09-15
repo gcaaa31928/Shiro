@@ -1,5 +1,6 @@
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 
 import { useModalStack } from '~/components/ui/modal'
 import { apiClient } from '~/lib/request'
@@ -32,11 +33,12 @@ export const usePresentSubscribeModal = (
   defaultTypes?: (keyof typeof SubscribeTypeToBitMap)[],
 ) => {
   const { present } = useModalStack()
+  const t = useTranslations('Subscribe')
 
   return {
     present: () => {
       const dispose = present({
-        title: '邮件订阅',
+        title: t('mail_subscribe'),
         clickOutsideToDismiss: true,
         content: () => (
           <SubscribeModal onConfirm={dispose} defaultTypes={defaultTypes} />

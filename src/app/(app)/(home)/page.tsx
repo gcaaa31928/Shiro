@@ -4,19 +4,14 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import type React from 'react'
 import { createElement } from 'react'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import {
-  FaSolidComments,
   FaSolidFeatherAlt,
-  FaSolidHistory,
-  FaSolidUserFriends,
   IcTwotoneSignpost,
-  MdiFlask,
-  MdiLightbulbOn20,
-  RMixPlanet,
 } from '~/components/icons/menu-collection'
 import { isSupportIcon, SocialIcon } from '~/components/modules/home/SocialIcon'
 import { usePresentSubscribeModal } from '~/components/modules/subscribe'
@@ -186,9 +181,7 @@ const Hero = () => {
             'text-neutral-800/80 center dark:text-neutral-200/80',
           )}
         >
-          <small className="text-center">
-            当第一颗卫星飞向大气层外，我们便以为自己终有一日会征服宇宙。
-          </small>
+          <small className="text-center" />
           <span className="mt-8 animate-bounce">
             <i className="icon-[mingcute--right-line] rotate-90 text-2xl" />
           </span>
@@ -216,52 +209,23 @@ const ActivityScreen = () => {
 
 const windsock = [
   {
-    title: '文稿',
+    title: 'post',
     path: '/posts',
     type: 'Post',
     subMenu: [],
     icon: IcTwotoneSignpost,
   },
   {
-    title: '手记',
+    title: 'note',
     type: 'Note',
     path: '/notes',
     icon: FaSolidFeatherAlt,
-  },
-  {
-    title: '度过的时光呀',
-    icon: FaSolidHistory,
-    path: '/timeline',
-  },
-  {
-    title: '朋友们',
-    icon: FaSolidUserFriends,
-    path: '/friends',
-  },
-  {
-    title: '写下一点思考',
-    icon: MdiLightbulbOn20,
-    path: '/thinking',
-  },
-  {
-    title: '看看我做些啥',
-    icon: MdiFlask,
-    path: '/projects',
-  },
-  {
-    title: '记录下一言',
-    path: '/says',
-    icon: FaSolidComments,
-  },
-  {
-    title: '跃迁',
-    icon: RMixPlanet,
-    path: 'https://travel.moe/go.html',
   },
 ]
 
 const Windsock = () => {
   const likeQueryKey = ['site-like']
+  const t = useTranslations('Home')
   const { data: count } = useQuery({
     queryKey: likeQueryKey,
     queryFn: () => apiClient.proxy('like_this').get(),
@@ -274,8 +238,6 @@ const Windsock = () => {
   return (
     <>
       <div className="mt-28 flex flex-col center">
-        <div className="my-5 text-2xl font-medium">风向标</div>
-        <div className="mb-24 opacity-90">去到别去看看？</div>
         <ul className="flex flex-col flex-wrap gap-2 gap-y-8 opacity-80 lg:flex-row">
           {windsock.map((item, index) => {
             return (
@@ -311,7 +273,7 @@ const Windsock = () => {
                   className="flex items-center gap-4 text-neutral-800 duration-200 hover:!text-accent dark:text-neutral-200"
                 >
                   {createElement(item.icon, { className: 'w-6 h-6' })}
-                  <span>{item.title}</span>
+                  <span>{t(item.title)}</span>
                 </a>
 
                 {index != windsock.length - 1 && (
@@ -336,7 +298,7 @@ const Windsock = () => {
                 })
               })
 
-            toast('谢谢你！', undefined, {
+            toast(t('thank_you'), undefined, {
               iconElement: (
                 <m.i
                   className="icon-[mingcute--heart-fill] text-uk-red-light"
@@ -357,7 +319,7 @@ const Windsock = () => {
             })
           }}
         >
-          喜欢本站 <i className="icon-[mingcute--heart-fill]" />{' '}
+          {t('like')} <i className="icon-[mingcute--heart-fill]" />{' '}
           <NumberSmoothTransition>
             {count as any as string}
           </NumberSmoothTransition>
@@ -369,7 +331,7 @@ const Windsock = () => {
             presentSubscribe()
           }}
         >
-          订阅
+          {t('subscribe')}
           <i className="icon-[material-symbols--notifications-active]" />
         </StyledButton>
       </div>

@@ -55,15 +55,6 @@ export const TimelineProgress = () => {
         />
         <span className="shrink-0">天</span>
       </p>
-      <p>
-        今年已过{' '}
-        <CountUp to={percentOfYear} decimals={6} duration={PROGRESS_DURATION} />
-        %
-      </p>
-      <p>
-        今天已过{' '}
-        <CountUp to={percentOfDay} decimals={6} duration={PROGRESS_DURATION} />%
-      </p>
     </>
   )
 }
