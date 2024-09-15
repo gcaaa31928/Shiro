@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 
 import { ScrollArea } from '~/components/ui/scroll-area'
@@ -13,6 +14,7 @@ import { ActivityCard, iconClassName } from './ActivityCard'
 import type { ReactActivityType } from './types'
 
 export const ActivityRecent = () => {
+  const t = useTranslations('Home')
   const { data, isLoading } = useQuery({
     queryKey: ['home-activity-recent'],
     queryFn: async () => {
@@ -47,7 +49,7 @@ export const ActivityRecent = () => {
       viewport={{ once: true }}
     >
       <m.h2 className="mb-8 text-2xl font-medium leading-loose lg:ml-14">
-        最近发生的事
+        {t('activity_recent')}
       </m.h2>
 
       {isLoading ? (
