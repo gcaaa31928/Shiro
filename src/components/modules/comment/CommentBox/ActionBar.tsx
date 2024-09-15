@@ -54,7 +54,7 @@ const WhisperCheckbox = () => {
           setter('isWhisper', checked)
         }}
       />
-      <span className="label-text text-sm">悄悄话</span>
+      <span className="label-text text-sm">悄悄話</span>
     </label>
   )
 }
@@ -100,8 +100,8 @@ export const CommentBoxActionBar: Component = ({ className }) => {
         )}
       >
         <span className="hidden md:inline">
-          支持 <b>Markdown</b> 与{' '}
-          <MLink href="https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">
+          支持 <b>Markdown</b> 與{' '}
+          <MLink href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">
             GFM
           </MLink>
         </span>
@@ -141,7 +141,7 @@ const SubmitButton = () => {
     >
       <TiltedSendIcon className="size-5 text-zinc-800 dark:text-zinc-200" />
       <m.span className="text-sm" layout="size">
-        {isPending ? '送信...' : '送信'}
+        {isPending ? '送出...' : '送出'}
       </m.span>
     </m.button>
   )
