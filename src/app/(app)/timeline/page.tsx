@@ -5,12 +5,12 @@ import { TimelineType } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { memo, useEffect } from 'react'
 
 import { SolidBookmark } from '~/components/icons/bookmark'
 import { NormalContainer } from '~/components/layout/container/Normal'
-import { PeekLink } from '~/components/modules/peek/PeekLink'
 import { TimelineProgress } from '~/components/modules/timeline/TimelineProgress'
 import { Divider } from '~/components/ui/divider'
 import { BackToTopFAB } from '~/components/ui/fab'
@@ -173,7 +173,7 @@ export default function TimelinePage() {
 
   const subtitle = `共有 ${
     sortedArr.flat(2).filter((i) => typeof i === 'object').length
-  } 篇文章，${!memory ? '繼續創造新的故事吧' : '回顧一下吧'}`
+  } 篇文章`
 
   return (
     <NormalContainer>
@@ -234,9 +234,9 @@ const Item = memo<{
             day: '2-digit',
           }).format(item.date)}
         </span>
-        <PeekLink href={item.href} className="min-w-0 truncate leading-6">
+        <Link href={item.href} className="min-w-0 truncate leading-6">
           <span className="min-w-0 truncate">{item.title}</span>
-        </PeekLink>
+        </Link>
         {item.important && (
           <SolidBookmark
             className="ml-2 cursor-pointer text-red-500"
