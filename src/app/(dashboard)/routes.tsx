@@ -50,7 +50,7 @@ export const dashboardRoutes = {
       ],
     },
     {
-      title: '手记',
+      title: '筆記',
       icon: <i className="icon-[mingcute--quill-pen-line]" />,
       redirect: '/dashboard/notes/list',
       path: '/notes',
