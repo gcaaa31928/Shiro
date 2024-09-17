@@ -24,10 +24,6 @@
           {
             "name": "時間線",
             "href": "/timeline"
-          },
-          {
-            "name": "好友們",
-            "href": "/friends"
           }
         ]
       },
@@ -35,8 +31,9 @@
         "name": "聯絡方式",
         "links": [
           {
-            "name": "留言",
-            "href": "/message"
+            "name": "Discord",
+            "href": "https://discord.gg/FzajpJjv",
+            "external": true
           },
           {
             "name": "信箱",
