@@ -5,18 +5,13 @@ import { m, useAnimationControls } from 'framer-motion'
 import { useIsMobile } from '~/atoms/hooks'
 import { ThumbsupIcon } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
-import { useModalStack } from '~/components/ui/modal'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { useForceUpdate } from '~/hooks/common/use-force-update'
-import { useIsClient } from '~/hooks/common/use-is-client'
 import { isLikedBefore, setLikeId } from '~/lib/cookie'
 import { clsxm } from '~/lib/helper'
 import { apiClient } from '~/lib/request'
-import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
-import { urlBuilder } from '~/lib/url-builder'
 import {
-  getGlobalCurrentPostData,
   setGlobalCurrentPostData,
   useCurrentPostDataSelector,
 } from '~/providers/post/CurrentPostDataProvider'
@@ -29,7 +24,6 @@ import {
 } from '../shared/ActionAsideContainer'
 import { AsideCommentButton } from '../shared/AsideCommentButton'
 import { AsideDonateButton } from '../shared/AsideDonateButton'
-import { ShareModal } from '../shared/ShareModal'
 import { usePresentSubscribeModal } from '../subscribe'
 
 export const PostBottomBarAction: Component = () => {
@@ -38,7 +32,6 @@ export const PostBottomBarAction: Component = () => {
   return (
     <div className="my-6 flex items-center justify-center space-x-8">
       <LikeButton />
-      <ShareButton />
       <SubscribeButton />
       <AsideDonateButton />
     </div>
@@ -49,7 +42,6 @@ export const PostActionAside: Component = ({ className }) => {
   return (
     <ActionAsideContainer className={className}>
       <LikeButton />
-      <ShareButton />
       <SubscribeButton />
       <AsideDonateButton />
       <PostAsideCommentButton />
@@ -112,7 +104,7 @@ const LikeButton = () => {
       onClick={() => {
         handleLike()
         control.start('tap')
-        toast('捕捉一只大佬！', undefined, {
+        toast('謝謝您的讚美', undefined, {
           iconElement: (
             <m.i
               className="text-uk-orange-light"
@@ -153,53 +145,6 @@ const LikeButton = () => {
           </span>
         )}
       </m.i>
-    </MotionButtonBase>
-  )
-}
-
-const ShareButton = () => {
-  const isClient = useIsClient()
-  const { present } = useModalStack()
-
-  if (!isClient) return null
-
-  return (
-    <MotionButtonBase
-      aria-label="Share This Post Button"
-      className="flex flex-col space-y-2"
-      onClick={() => {
-        const post = getGlobalCurrentPostData()
-
-        if (!post) return
-
-        const hasShare = 'share' in navigator
-
-        const title = '分享一片宝藏文章'
-        const url = urlBuilder(
-          routeBuilder(Routes.Post, {
-            slug: post.slug,
-            category: post.category.slug,
-          }),
-        ).href
-
-        const text = `嘿，我发现了一片宝藏文章「${post.title}」哩，快来看看吧！`
-
-        if (hasShare)
-          navigator.share({
-            title: post.title,
-            text: post.text,
-            url,
-          })
-        else {
-          present({
-            title: '分享此内容',
-            clickOutsideToDismiss: true,
-            content: () => <ShareModal text={text} title={title} url={url} />,
-          })
-        }
-      }}
-    >
-      <ActionAsideIcon className="icon-[mingcute--share-forward-line] hover:text-uk-cyan-light" />
     </MotionButtonBase>
   )
 }
