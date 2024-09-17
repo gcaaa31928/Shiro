@@ -32,11 +32,12 @@ const ActivityIconContext = createContext<{
   appDescription: any
 }>(null!)
 
-const CND_DOMAIN = 'https://fastly.jsdelivr.net/gh/Innei/reporter-assets@main'
-const fetchJsonData = () =>
-  Promise.all([
-    fetch(`${CND_DOMAIN}/app-icon.json`).then((res) => res.json() as object),
-    fetch(`${CND_DOMAIN}/app-desc.json`).then((res) => res.json() as object),
+const CDN_DOMAIN =
+  'https://fastly.jsdelivr.net/gh/gcaaa31928/reporter-assets@main'
+const fetchJsonData = () => {
+  return Promise.all([
+    fetch(`${CDN_DOMAIN}/app-icon.json`).then((res) => res.json() as object),
+    fetch(`${CDN_DOMAIN}/app-desc.json`).then((res) => res.json() as object),
   ])
 export const Activity = () => {
   const shouldShowMeta = useHeaderMetaShouldShow()
@@ -207,7 +208,7 @@ const TriggerComponent = memo<{
     !isBuiltIn && icon
       ? icon
       : isBuiltIn
-        ? `${CND_DOMAIN}/apps/${appIcon[processName]}.png`
+        ? `${CDN_DOMAIN}/apps/${appIcon[processName]}.png`
         : ''
 
   const className = clsx('pointer-events-none select-none', {
