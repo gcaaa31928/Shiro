@@ -13,7 +13,7 @@ export const NotePasswordForm = () => {
   }
   return (
     <div className="flex h-[calc(100vh-15rem)] flex-col space-y-4 center">
-      需要密码才能查看！
+      需要密碼才能查看！
       <form className="mt-8 flex flex-col space-y-4 center">
         <Input
           value={password}

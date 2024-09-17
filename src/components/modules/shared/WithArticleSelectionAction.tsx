@@ -141,7 +141,7 @@ export const WithArticleSelectionAction: Component<{
                   })
                 }}
               >
-                引用评论
+                引用評論
               </MotionButtonBase>
             )}
           </m.div>
