@@ -39,6 +39,8 @@ const fetchJsonData = () => {
     fetch(`${CDN_DOMAIN}/app-icon.json`).then((res) => res.json() as object),
     fetch(`${CDN_DOMAIN}/app-desc.json`).then((res) => res.json() as object),
   ])
+}
+
 export const Activity = () => {
   const shouldShowMeta = useHeaderMetaShouldShow()
 
