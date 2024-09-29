@@ -1,35 +1,41 @@
 'use client'
 
-import { SignInButton } from '@clerk/nextjs'
-import { usePathname } from 'next/navigation'
+import clsx from 'clsx'
+import { useEffect } from 'react'
 
-import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
+import { useSessionReader } from '~/atoms/hooks/reader'
 import { StyledButton } from '~/components/ui/button'
-import { useModalStack } from '~/components/ui/modal'
-import { urlBuilder } from '~/lib/url-builder'
-
+import { AuthProvidersRender, useAuthProviders } from '~/queries/hooks/authjs'
 
 export function CommentBoxSignedOutContent() {
-  const pathname = usePathname()
-  const { dismissAll } = useModalStack()
+  const isReaderLogin = !!useSessionReader()
+  const providers = useAuthProviders()
+  const hasProviders = providers && Object.keys(providers).length > 0
+
+  useEffect(() => {
+    if (!providers) return
+    if (Object.keys(providers).length === 0) {
+      setCommentMode(CommentBoxMode.legacy)
+    }
+  }, [providers])
+
+  if (isReaderLogin) return null
 
   return (
-    <div className="flex h-[150px] w-full space-x-4 rounded-lg bg-gray-100/80 center dark:bg-zinc-900/80">
-      <SignInButton
-        mode="modal"
-        fallbackRedirectUrl={urlBuilder(pathname).href}
+    <div className="center flex h-[150px] w-full flex-col rounded-lg bg-gray-100/80 dark:bg-zinc-900/80">
+      <p className="mb-4 text-sm">使用社交帳號登入</p>
+      <AuthProvidersRender />
+
+      <StyledButton
+        className={clsx(hasProviders ? 'mt-6' : '')}
+        variant="secondary"
+        type="button"
+        onClick={() => {
+          setCommentMode(CommentBoxMode.legacy)
+        }}
       >
-        <StyledButton
-          onClick={() => {
-            dismissAll()
-          }}
-          variant="primary"
-          type="button"
-        >
-          <UserArrowLeftIcon className="mr-1 size-5" />
-          登入後即可留言
-        </StyledButton>
-      </SignInButton>
+        登入後即可留言
+      </StyledButton>
     </div>
   )
 }

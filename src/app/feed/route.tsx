@@ -158,7 +158,7 @@ export async function GET() {
       } catch {
         return ReactDOM.renderToString(
           <p>
-            當前內容無法在 RSS Render 中正確渲染，請前往：
+            當前內容無法在 RSS 閱讀器 Render 中正確渲染，請前往：
             <a href={`${xss(item.link)}`}>${xss(item.link)}</a>
           </p>,
         )

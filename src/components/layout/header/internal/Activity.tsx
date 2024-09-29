@@ -40,6 +40,7 @@ const fetchJsonData = () => {
     fetch(`${CDN_DOMAIN}/app-desc.json`).then((res) => res.json() as object),
   ])
 }
+
 export const Activity = () => {
   const shouldShowMeta = useHeaderMetaShouldShow()
 
@@ -69,8 +70,8 @@ const ActivityIcon = memo(() => {
   const isPageActive = usePageIsActive()
   const { data } = useQuery({
     queryKey: ['activity'],
-    queryFn: async () => {
-      return await apiClient
+    queryFn: async () =>
+      await apiClient
         .proxy(endpoint)
         .post<{
           processName: string
@@ -86,14 +87,11 @@ const ActivityIcon = memo(() => {
           }
         }>()
         .then((res) => res)
-        .catch(() => {
-          return {
-            processName: '',
-            processInfo: undefined,
-            mediaInfo: undefined,
-          }
-        })
-    },
+        .catch(() => ({
+          processName: '',
+          processInfo: undefined,
+          mediaInfo: undefined,
+        })),
     refetchInterval: 1000 * 5 * 60,
     refetchOnMount: 'always',
     retry: false,
@@ -140,7 +138,7 @@ const ActivityIcon = memo(() => {
     <>
       {!!media && (
         <m.div className="absolute inset-y-0 left-0 z-10 flex items-center lg:left-[-30px]">
-          <div className="absolute inset-0 z-[-1] flex center">
+          <div className="center absolute inset-0 z-[-1] flex">
             <div className="size-6 rounded-md ring-2 ring-red-500 dark:ring-red-400" />
           </div>
           <FloatPopover
