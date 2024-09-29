@@ -10,9 +10,36 @@ import type {
   SignOutParams,
   SignOutResponse,
 } from 'next-auth/react'
-import { getCsrfToken, getProviders } from 'next-auth/react'
+import { getProviders } from 'next-auth/react'
 
 import { API_URL } from '~/constants/env'
+
+async function getCsrfToken() {
+  const response = await fetchData<{ csrfToken: string }>('csrf')
+  return response?.csrfToken
+}
+
+async function fetchData<T = any>(path: string): Promise<T | null> {
+  const baseUrl = `${API_URL}/auth`
+  const url = `${baseUrl}/${path}`
+  try {
+    const options: RequestInit = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    options.credentials = 'include'
+
+    const res = await fetch(url, options)
+    const data = await res.json()
+    if (!res.ok) throw data
+    return Object.keys(data).length > 0 ? data : null // Return null if data empty
+  } catch (error) {
+    console.error('CLIENT_FETCH_ERROR', { error: error as Error, url })
+    return null
+  }
+}
 
 export async function signIn<
   P extends RedirectableProviderType | undefined = undefined,
