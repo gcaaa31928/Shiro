@@ -7,6 +7,8 @@ import { useSessionReader } from '~/atoms/hooks/reader'
 import { StyledButton } from '~/components/ui/button'
 import { AuthProvidersRender, useAuthProviders } from '~/queries/hooks/authjs'
 
+import { CommentBoxMode, setCommentMode } from './hooks'
+
 export function CommentBoxSignedOutContent() {
   const isReaderLogin = !!useSessionReader()
   const providers = useAuthProviders()
